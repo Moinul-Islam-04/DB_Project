@@ -1,0 +1,182 @@
+.homeContainer {
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+    height: 100vh;
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Spotify', Arial, sans-serif;
+  }
+  
+  /* Left Sidebar Styles */
+  .leftSidebar {
+    background-color: #181818;
+    padding: 20px;
+    border-right: 1px solid #282828;
+  }
+  
+  .artistCard {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .artistCard:hover {
+    background-color: #282828;
+  }
+  
+  .artistImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+  }
+  
+  /* Main Content Styles */
+  .mainContent {
+    background-color: #121212;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .topNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .searchContainer {
+    display: flex;
+    align-items: center;
+    background-color: #282828;
+    border-radius: 20px;
+    padding: 10px 15px;
+    width: 400px;
+  }
+  
+  .searchIcon {
+    color: #b3b3b3;
+    margin-right: 10px;
+  }
+  
+  .searchInput {
+    background: none;
+    border: none;
+    color: white;
+    width: 100%;
+  }
+  
+  .navIcons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .navIcon, .profileIcon {
+    color: #b3b3b3;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .navIcon:hover, .profileIcon:hover {
+    color: white;
+  }
+  
+  .profileIcon {
+    background-color: #282828;
+    border-radius: 50%;
+    padding: 8px;
+  }
+  
+  /* Concerts Section */
+  .concertsSection {
+    margin-top: 20px;
+  }
+  
+  .concertScroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+  }
+  
+  .concertCard {
+    min-width: 250px;
+    background-color: #181818;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .concertCard:hover {
+    transform: scale(1.05);
+  }
+  
+  .concertImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .concertDetails {
+    padding: 15px;
+  }
+  
+  .concertInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #b3b3b3;
+    margin-top: 5px;
+  }
+  
+  .concertDate {
+    color: #1DB954;
+    margin-top: 10px;
+  }
+  
+  /* Right Sidebar Styles */
+  .rightSidebar {
+    background-color: #181818;
+    padding: 20px;
+    border-left: 1px solid #282828;
+  }
+  
+  .friendActivityCard {
+    background-color: #282828;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .activityStatus {
+    color: #1DB954;
+    font-weight: bold;
+  }
+  
+  .sidebarHeader {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #282828;
+    padding-bottom: 10px;
+  }
+  
+  /* Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #181818;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #282828;
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #404040;
+  }

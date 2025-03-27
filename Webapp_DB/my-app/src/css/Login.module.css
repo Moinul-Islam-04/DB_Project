@@ -1,0 +1,110 @@
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #121212;
+    margin: 0;
+    padding: 0;
+    font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .loginWrapper {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    background-color: transparent;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  
+  .spotifyLogo {
+    width: 180px;
+    color: #1DB954;
+  }
+  
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup {
+    margin-bottom: 16px;
+  }
+  
+  .formGroup label {
+    display: none; /* Hide labels for a cleaner look */
+  }
+  
+  .inputField {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #282828;
+    border-radius: 4px;
+    background-color: #121212;
+    color: #fff;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    outline: none;
+  }
+  
+  .inputField::placeholder {
+    color: #b3b3b3;
+  }
+  
+  .inputField:focus {
+    border-color: #1DB954;
+  }
+  
+  .inputField:first-of-type {
+    margin-bottom: 16px;
+  }
+  
+  .forgotPassword {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .forgotLink {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .forgotLink:hover {
+    color: #1DB954;
+  }
+  
+  .loginButton {
+    background-color: #1DB954;
+    color: #000;
+    border: none;
+    padding: 14px;
+    border-radius: 500px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .loginButton:hover {
+    background-color: #1ed760;
+    transform: scale(1.02);
+  }
+  
+  .loginButton:active {
+    transform: scale(0.98);
+  }
+  
+  /* Removed separator and other buttons to match the image */
+  .signupPrompt {
+    display: none;
+  }
