@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../css/Home.module.css';
 
-// Placeholder icons (you'd replace these with actual imported icons)
+// Placeholder icons
 import { 
   Search, 
   User, 
@@ -14,15 +14,36 @@ import {
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
-  // Placeholder data (would come from backend/API in real app)
-  const topArtists = [
-    { id: 1, name: 'Taylor Swift', genre: 'Pop', image: '/placeholder-artist-1.jpg' },
-    { id: 2, name: 'The Weeknd', genre: 'R&B', image: '/placeholder-artist-2.jpg' },
-    { id: 3, name: 'Bad Bunny', genre: 'Reggaeton', image: '/placeholder-artist-3.jpg' },
+  // Artists data with slugified names
+  const artists = [
+    { 
+      id: 1, 
+      name: 'Taylor Swift', 
+      genre: 'Pop', 
+      image: '/placeholder-artist-1.jpg',
+      slug: 'taylor-swift'
+    },
+    { 
+      id: 2, 
+      name: 'The Weeknd', 
+      genre: 'R&B', 
+      image: '/placeholder-artist-2.jpg',
+      slug: 'the-weeknd'
+    },
+    { 
+      id: 3, 
+      name: 'Bad Bunny', 
+      genre: 'Reggaeton', 
+      image: '/placeholder-artist-3.jpg',
+      slug: 'bad-bunny'
+    },
   ];
 
+  // Existing data remains the same
+  const topArtists = artists;
   const upcomingConcerts = [
     { 
       id: 1, 
@@ -75,6 +96,31 @@ const Home = () => {
     navigate('/profile');
   };
 
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Filter artists based on search term
+    if (value.trim() === '') {
+      setSearchResults([]);
+      return;
+    }
+
+    const results = artists.filter(artist => 
+      artist.name.toLowerCase().includes(value.toLowerCase())
+    );
+
+    setSearchResults(results);
+  };
+
+  const handleArtistSelect = (artistSlug) => {
+    // Navigate to the artist page
+    navigate(`/artist/${artistSlug}`);
+    // Clear search results and input
+    setSearchTerm('');
+    setSearchResults([]);
+  };
+
   return (
     <div className={styles.homeContainer}>
       {/* Left Sidebar - Top Artists */}
@@ -83,7 +129,11 @@ const Home = () => {
           <h3>Top Artists</h3>
         </div>
         {topArtists.map(artist => (
-          <div key={artist.id} className={styles.artistCard}>
+          <div 
+            key={artist.id} 
+            className={styles.artistCard}
+            onClick={() => handleArtistSelect(artist.slug)}
+          >
             <img 
               src={artist.image} 
               alt={artist.name} 
@@ -107,9 +157,30 @@ const Home = () => {
               type="text"
               placeholder="Search artists, concerts, friends"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearch}
               className={styles.searchInput}
             />
+            {searchResults.length > 0 && (
+              <div className={styles.searchResultsDropdown}>
+                {searchResults.map(artist => (
+                  <div 
+                    key={artist.id} 
+                    className={styles.searchResultItem}
+                    onClick={() => handleArtistSelect(artist.slug)}
+                  >
+                    <img 
+                      src={artist.image} 
+                      alt={artist.name} 
+                      className={styles.searchResultImage}
+                    />
+                    <div>
+                      <h4>{artist.name}</h4>
+                      <p>{artist.genre}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           <div className={styles.navIcons}>
             <Bell className={styles.navIcon} />
@@ -123,7 +194,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Upcoming Concerts Section */}
+        {/* Existing sections remain the same */}
         <div className={styles.concertsSection}>
           <h2>Upcoming Concerts</h2>
           <div className={styles.concertScroll}>
