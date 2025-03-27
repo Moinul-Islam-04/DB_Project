@@ -2,50 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { MapPin, Music, Calendar } from 'lucide-react';
 import styles from '../css/Artist.module.css';
+import { getArtistBySlug } from '../API/ArtistAPI.js';
 
-// Mock data (would come from backend in real app)
-const ARTIST_DATA = {
-  'taylor-swift': {
-    name: 'Taylor Swift',
-    genre: 'Pop',
-    image: '/taylor-swift-main.jpg',
-    bio: 'Grammy-winning singer-songwriter known for narrative songwriting and genre-crossing music.',
-    monthlyListeners: 85000000,
-    topTracks: [
-      'Blank Space', 
-      'Shake It Off', 
-      'Anti-Hero', 
-      'Love Story', 
-      'You Belong With Me'
-    ],
-    upcomingConcerts: [
-      {
-        id: 1,
-        venue: 'SoFi Stadium',
-        date: 'July 15, 2024',
-        location: 'Los Angeles, CA',
-        image: '/taylor-swift-concert-1.jpg'
-      },
-      {
-        id: 2,
-        venue: 'MetLife Stadium',
-        date: 'August 22, 2024',
-        location: 'East Rutherford, NJ',
-        image: '/taylor-swift-concert-2.jpg'
-      }
-    ]
-  },
-  // Add more artists as needed
-};
 
 const ArtistPage = () => {
   const { artistSlug } = useParams();
   const [artist, setArtist] = useState(null);
 
   useEffect(() => {
-    // In a real app, this would be an API call
-    const artistData = ARTIST_DATA[artistSlug];
-    setArtist(artistData);
+    getArtistBySlug(artistSlug)
+      .then(setArtist)
+      .catch((err) => {
+        console.error(err);
+        setError(err.message);
+      });
   }, [artistSlug]);
 
   if (!artist) {

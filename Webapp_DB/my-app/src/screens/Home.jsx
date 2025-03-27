@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../css/Home.module.css';
-
 // Placeholder icons
 import { 
   Search, 
@@ -12,85 +11,39 @@ import {
   Settings 
 } from 'lucide-react';
 
+import { getTopArtistBySlug, getConcertsBySlug, getFriendsBySlug } from '../API/HomeAPI.js';
+
+
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  
+  const [topArtists, setTopArtists] = useState([]);
+  const [concerts, setConcerts] = useState([]);
+  const [friendActivity, setFriendActivity] = useState([]);
+  
   const navigate = useNavigate();
 
-  // Artists data with slugified names
-  const artists = [
-    { 
-      id: 1, 
-      name: 'Taylor Swift', 
-      genre: 'Pop', 
-      image: '/placeholder-artist-1.jpg',
-      slug: 'taylor-swift'
-    },
-    { 
-      id: 2, 
-      name: 'The Weeknd', 
-      genre: 'R&B', 
-      image: '/placeholder-artist-2.jpg',
-      slug: 'the-weeknd'
-    },
-    { 
-      id: 3, 
-      name: 'Bad Bunny', 
-      genre: 'Reggaeton', 
-      image: '/placeholder-artist-3.jpg',
-      slug: 'bad-bunny'
-    },
-  ];
 
-  // Existing data remains the same
-  const topArtists = artists;
-  const upcomingConcerts = [
-    { 
-      id: 1, 
-      artist: 'Taylor Swift', 
-      venue: 'SoFi Stadium', 
-      date: 'July 15, 2024', 
-      location: 'Los Angeles, CA',
-      image: '/placeholder-concert-1.jpg'
-    },
-    { 
-      id: 2, 
-      artist: 'The Weeknd', 
-      venue: 'United Center', 
-      date: 'August 3, 2024', 
-      location: 'Chicago, IL',
-      image: '/placeholder-concert-2.jpg'
-    },
-    { 
-      id: 3, 
-      artist: 'Bad Bunny', 
-      venue: 'Madison Square Garden', 
-      date: 'September 10, 2024', 
-      location: 'New York, NY',
-      image: '/placeholder-concert-3.jpg'
-    },
-  ];
+  useEffect(() => {
+    // Fetch top artists by iterating over the slugs
+    const topArtistSlugs = ['artist-1', 'artist-2', 'artist-3'];
+    Promise.all(topArtistSlugs.map(slug => getTopArtistBySlug(slug)))
+      .then(artists => setTopArtists(artists))
+      .catch(err => console.error(err));
 
-  const friendActivity = [
-    { 
-      id: 1, 
-      name: 'Alex', 
-      concert: 'Taylor Swift', 
-      status: 'Going' 
-    },
-    { 
-      id: 2, 
-      name: 'Jordan', 
-      concert: 'The Weeknd', 
-      status: 'Interested' 
-    },
-    { 
-      id: 3, 
-      name: 'Sam', 
-      concert: 'Bad Bunny', 
-      status: 'Tickets Bought' 
-    },
-  ];
+    // For concerts and friend activity, you'll need similar slugs or update your API to return full arrays.
+    // For now, let's assume you have slugs for a single concert and friend activity per record:
+    const concertSlugs = ['concert-1', 'concert-2', 'concert-3'];
+    Promise.all(concertSlugs.map(slug => getConcertsBySlug(slug)))
+      .then(concertsData => setConcerts(concertsData))
+      .catch(err => console.error(err));
+
+    const friendSlugs = ['friend-1', 'friend-2', 'friend-3'];
+    Promise.all(friendSlugs.map(slug => getFriendsBySlug(slug)))
+      .then(friendsData => setFriendActivity(friendsData))
+      .catch(err => console.error(err));
+  }, []);
 
   const handleProfileClick = () => {
     navigate('/profile');
@@ -106,7 +59,7 @@ const Home = () => {
       return;
     }
 
-    const results = artists.filter(artist => 
+    const results = topArtists.filter(artist => 
       artist.name.toLowerCase().includes(value.toLowerCase())
     );
 
@@ -198,7 +151,7 @@ const Home = () => {
         <div className={styles.concertsSection}>
           <h2>Upcoming Concerts</h2>
           <div className={styles.concertScroll}>
-            {upcomingConcerts.map(concert => (
+            {concerts.map(concert => (
               <div key={concert.id} className={styles.concertCard}>
                 <img 
                   src={concert.image} 
